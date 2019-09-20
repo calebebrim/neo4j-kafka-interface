@@ -1,3 +1,5 @@
+![Header Image](https://raw.githubusercontent.com/calebebrim/neo4j-kafka-interface/master/images/header.png)
+
 # Setting up an reactive Neo4j replication data topology using apache Kafka 
 
 ##Motivation
