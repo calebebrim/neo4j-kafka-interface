@@ -45,7 +45,7 @@ export B_USERNAME=username # Optional
 
 # TOPICS
 export B_TOPIC_PREFIX=0436wmyx-
-export REQUESTS_TOPIC=request
+export REQUEST_TOPIC=request
 export RESPONSE_TOPIC=response
 
 # NEO4J

@@ -1,11 +1,13 @@
 from confluent_kafka import Producer, Consumer, Message
 
 from src.kafka.string import subscribe
-
+import json
+import logging
 import os
 
 
 def get_producer() -> Producer:
+    logging.info('Initializing Producer')
     producer = Producer(get_producer_properties())
     return producer
 
@@ -25,25 +27,24 @@ def iter_requests() -> Message:
             if msg is None:
                 continue
             if msg.error():
-                print("Consumer error: {}".format(msg.error()))
+                logging.error("Consumer error: {}".format(msg.error()))
                 continue
             yield msg
 
     except Exception as ex:
-        print(ex)
+        logging.error(ex)
 
 
 def get_requests_consumer() -> Consumer:
     c = Consumer(get_consumer_properties(
-        group_sufix='-query-executor',
         mode='latest'))
-    subscribe([os.environ['REQUESTS_TOPIC']], consumer=c)
+    subscribe([os.environ['REQUEST_TOPIC']], consumer=c)
     return c
 
 
 def request_string_responder(value: str):
     producer = get_producer()
-    producer.produce(topic=os.environ['B_TOPIC_PREFIX']+os.environ['RESPONSE_TOPIC'], value=value)
+    producer.produce(topic=os.environ['RESPONSE_TOPIC'], value=value)
     producer.poll(0)
     producer.flush()
 
@@ -53,12 +54,13 @@ def get_responser_producer() -> Producer:
 
 
 def get_command_consumer() -> Consumer:
-    c = Consumer(get_consumer_properties(group_sufix='-command-executor'))
-    subscribe([os.environ['COMMAND_TOPIC']], consumer=c, offset=0)
+    logging.info('Initializing Consumer')
+    c = Consumer(get_consumer_properties())
+    subscribe([os.environ['REQUEST_TOPIC']], consumer=c, offset=0)
     return c
 
 
-def get_consumer_properties(group_sufix: str, mode: str = 'smallest'):
+def get_consumer_properties(mode: str = 'smallest'):
     if 'B_USERNAME' in os.environ:
         prop = {
             'bootstrap.servers': os.environ['BROKERS'],
@@ -68,15 +70,16 @@ def get_consumer_properties(group_sufix: str, mode: str = 'smallest'):
             'sasl.mechanisms': 'SCRAM-SHA-256',
             'sasl.username': os.environ['B_USERNAME'],
             'sasl.password': os.environ['B_PASSWORD'],
-            'group.id': os.environ['GROUP_ID']+group_sufix,
+            'group.id': os.environ['GROUP_ID'],
         }
     else:
         prop = {
             'bootstrap.servers': os.environ['BROKERS'],
             'session.timeout.ms': 6000,
             'default.topic.config': {'auto.offset.reset': mode},
-            'group.id': os.environ['GROUP_ID']+group_sufix,
+            'group.id': os.environ['GROUP_ID'],
         }
+    logging.info('Consumer Properties: {}'.format(json.dumps(prop,indent=4,sort_keys=True)))
     return prop
 
 
@@ -99,5 +102,5 @@ def get_producer_properties() -> dict:
             'default.topic.config': {'auto.offset.reset': 'smallest'},
             'group.id': os.environ['GROUP_ID']
         }
-
+    logging.info('Producer Properties: {}'.format(json.dumps(prop,indent=4,sort_keys=True)))
     return prop

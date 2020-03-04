@@ -3,11 +3,11 @@ import os
 
 
 def produce(key:str, value:str, topic:str , producer: Producer):
-    producer.produce(topic=os.environ['B_TOPIC_PREFIX']+topic, value=value, key=key)
+    producer.produce(topic=topic, value=value, key=key)
 
 
 def subscribe(topics: list, consumer: Consumer, offset: int = None):
-    topics = list(map(lambda topic: os.environ['B_TOPIC_PREFIX']+topic, topics))
+    topics = list(map(lambda topic: topic, topics))
 
     if offset:
         def on_assign(consumer, partitions):
