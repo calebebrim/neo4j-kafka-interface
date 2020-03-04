@@ -1,0 +1,40 @@
+version: "3.2"
+services:
+  neo4j:
+    image: neo4j
+    ports:
+      - "7471:7474"
+      - "7687:7687"
+    expose: 
+      - 7471
+      - 7681
+    volumes: 
+      - ./neo4j/data:/var/lib/neo4j/data
+
+  n4j-server:
+    restart: always
+    build: .
+    entrypoint: python3 -m src.global_server.py
+    environment:
+      LOG: 'DEB'
+      BROKERS: kafka_1:9091,kafka_2:9092,kafka_3:9093
+      GROUP_ID: n4jserver
+      REQUEST_TOPIC: request
+      RESPONSE_TOPIC: response
+      NEO4J_USER: neo4j
+      NEO4J_PASS: data1
+      NEO4J_URI: bolt://neo4j:7681
+  
+  neo4j-sync:
+    restart: always
+    build: .
+    entrypoint: python3 -m src.db_sync.py
+    environment:
+      LOG: 'DEB'
+      BROKERS: server1:port1,server2:port2...
+      GROUP_ID: n4jserver
+      REQUEST_TOPIC: command
+      RESPONSE_TOPIC: command-response
+      NEO4J_USER: neo4j
+      NEO4J_PASS: data1
+      NEO4J_URI: bolt://localhost:7681
