@@ -165,6 +165,33 @@ docker-compose -f "neo4j-kafka-interface\docker-compose.yml" down
 docker-compose -f "neo4j-kafka-interface\docker-compose.yml" up -d --build
 
 ````
- 
 
+## Update> 
 
+Changes: 
+- File formatting
+- Error treatment
+- More effective logging
+- Integrating with docker compose
+- Direct network connection with compose-kafka_dataflow
+- Neo4j network isolation
+- Docker plugin image added for README
+- Use of JSON object to query and modify database
+
+### Query Json Body: 
+
+`````json
+{ 
+    "to": "kafka_query_response_topic",
+    "with_key":"query_key",
+    "command":"MATCH (u:User {name :\"user_1\"}) return u"
+}
+`````
+
+### Command Json Body: 
+````json
+{ 
+    "with_key":"command_key",
+    "command":"MERGE (u:User {name :\"user_1\"}) ON MATCH SET u.password = \"pass\" "
+}
+````
