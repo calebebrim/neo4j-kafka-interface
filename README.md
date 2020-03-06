@@ -146,7 +146,25 @@ instances disconnect from kafka to start assume its place.
 
   
 
+## Docker Compose
 
+Visual Studio has a very usefull plugin to manage docker and docker compose files. It also manage running containers,
+networks and etc...
+
+![Plugin Image](https://raw.githubusercontent.com/calebebrim/neo4j-kafka-interface/master/images/docker_plugin.png)
+
+
+
+### Building and run docker containers: 
+````bash
+docker-compose -f "neo4j-kafka-interface\docker-compose.yml" up -d --build
+````
+### Restarting and Building
+````bash
+docker-compose -f "neo4j-kafka-interface\docker-compose.yml" down
+docker-compose -f "neo4j-kafka-interface\docker-compose.yml" up -d --build
+
+````
  
 
 

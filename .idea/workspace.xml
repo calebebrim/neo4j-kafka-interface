@@ -3,13 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="46cc87e5-f695-4e2d-9224-b864b738c20a" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/db/neo4j/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/db/neo4j/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/db_sync.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/db_sync.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/global_server.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/global_server.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/kafka/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/kafka/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -19,35 +13,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-            <state split_layout="SECOND">
-              <first_editor relative-caret-position="17">
-                <caret line="1" selection-start-line="1" selection-end-line="1" />
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="357">
+                <caret line="156" lean-forward="true" selection-start-line="156" selection-end-line="156" />
               </first_editor>
               <second_editor />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/kafka/json/__init__.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="8" selection-start-line="8" selection-end-line="8" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/global_server.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="298">
-              <caret line="20" column="54" selection-start-line="20" selection-start-column="54" selection-end-line="20" selection-end-column="54" />
-              <folding>
-                <element signature="e#1#65#0" expanded="true" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -113,13 +86,13 @@
         <option value="$PROJECT_DIR$/src/kafka/json/__init__.py" />
         <option value="$PROJECT_DIR$/src/main.py" />
         <option value="$PROJECT_DIR$/src/kafka/string/__init__.py" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/dockerfile" />
         <option value="$PROJECT_DIR$/src/__init__.py" />
         <option value="$PROJECT_DIR$/src/kafka/__init__.py" />
         <option value="$PROJECT_DIR$/src/db_sync.py" />
         <option value="$PROJECT_DIR$/src/db/neo4j/__init__.py" />
         <option value="$PROJECT_DIR$/src/global_server.py" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -141,6 +114,11 @@
             <path>
               <item name="neo4j-kafka-interface" type="b2602c69:ProjectViewProjectNode" />
               <item name="neo4j-kafka-interface" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="neo4j-kafka-interface" type="b2602c69:ProjectViewProjectNode" />
+              <item name="neo4j-kafka-interface" type="462c0819:PsiDirectoryNode" />
+              <item name="images" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -402,7 +380,14 @@
       <option name="project" value="LOCAL" />
       <updated>1569002465273</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Changes: &#10;- File formatting&#10;- Error treatment&#10;- More effective logging&#10;- Integrating with docker compose&#10;- Direct network connection with compose-kafka_dataflow&#10;- Neo4j network isolation">
+      <created>1583513920034</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1583513920035</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TodoView">
@@ -417,7 +402,7 @@
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19072708" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19072708" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -426,7 +411,7 @@
       <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="5" weight="0.32936078" />
-      <window_info active="true" anchor="bottom" id="Version Control" order="6" visible="true" weight="0.32936078" />
+      <window_info anchor="bottom" id="Version Control" order="6" visible="true" weight="0.32936078" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.32936078" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Python Console" order="9" weight="0.32936078" />
@@ -479,7 +464,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Readme updated with header image" />
     <MESSAGE value="header image for README file" />
-    <option name="LAST_COMMIT_MESSAGE" value="header image for README file" />
+    <MESSAGE value="Changes: &#10;- File formatting&#10;- Error treatment&#10;- More effective logging&#10;- Integrating with docker compose&#10;- Direct network connection with compose-kafka_dataflow&#10;- Neo4j network isolation" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changes: &#10;- File formatting&#10;- Error treatment&#10;- More effective logging&#10;- Integrating with docker compose&#10;- Direct network connection with compose-kafka_dataflow&#10;- Neo4j network isolation" />
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="evaluateExpression">
@@ -561,16 +547,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SECOND">
-          <first_editor relative-caret-position="17">
-            <caret line="1" selection-start-line="1" selection-end-line="1" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://D:/Downloads/wurstmeister-kafka-docker-d90db60/wurstmeister-kafka-docker-d90db60/_config.yml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -604,13 +580,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/kafka/json/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="8" selection-start-line="8" selection-end-line="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/db/neo4j/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="166">
@@ -621,6 +590,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/docker-compose.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="39" column="41" lean-forward="true" selection-start-line="39" selection-start-column="41" selection-end-line="39" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/global_server.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="298">
@@ -628,6 +604,23 @@
           <folding>
             <element signature="e#1#65#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/kafka/json/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="357">
+            <caret line="156" lean-forward="true" selection-start-line="156" selection-end-line="156" />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>
