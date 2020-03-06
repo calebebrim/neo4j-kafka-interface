@@ -1,23 +1,26 @@
 from confluent_kafka import Producer, Consumer, Message
-
 from src.kafka.string import subscribe
 import json
 import logging
 import os
 
+producer = None
+
 
 def get_producer() -> Producer:
-    logging.info('Initializing Producer')
-    producer = Producer(get_producer_properties())
+    global producer
+    if producer is None:
+        logging.info('Initializing Producer')
+        producer = Producer(get_producer_properties(), )
     return producer
 
 
 def handle_requests(function: object):
-    for message in iter_requests():
+    for message in iter_messages():
         function(message)
 
 
-def iter_requests() -> Message:
+def iter_messages() -> Message:
     try:
         requester = get_requests_consumer()
 
@@ -25,26 +28,40 @@ def iter_requests() -> Message:
             msg = requester.poll(1.0)
 
             if msg is None:
+                logging.warning("No message fetched from {}".format(os.environ['REQUEST_TOPIC']))
                 continue
             if msg.error():
                 logging.error("Consumer error: {}".format(msg.error()))
                 continue
+
             yield msg
 
     except Exception as ex:
-        logging.error(ex)
+        logging.error("Something happened while iterating messages and forced iteration ends: {}".format(ex))
+        raise ex
 
 
 def get_requests_consumer() -> Consumer:
-    c = Consumer(get_consumer_properties(
+    c: Consumer = Consumer(get_consumer_properties(
         mode='latest'))
+    logging.info("Consumer is subscribing to {}".format(os.environ['REQUEST_TOPIC']))
     subscribe([os.environ['REQUEST_TOPIC']], consumer=c)
     return c
 
 
-def request_string_responder(value: str):
+def respond(message: str, to: str = None):
+    if not to:
+        to = os.environ['RESPONSE_TOPIC']
     producer = get_producer()
-    producer.produce(topic=os.environ['RESPONSE_TOPIC'], value=value)
+    producer.produce(topic=to, value=message)
+    producer.poll(0)
+    producer.flush()
+
+
+def fail(message: str):
+    logging.error("failing message: {}".format(message))
+    producer = get_producer()
+    producer.produce(topic=os.environ['FAIL_TOPIC'], value=message)
     producer.poll(0)
     producer.flush()
 
@@ -79,7 +96,7 @@ def get_consumer_properties(mode: str = 'smallest'):
             'default.topic.config': {'auto.offset.reset': mode},
             'group.id': os.environ['GROUP_ID'],
         }
-    logging.info('Consumer Properties: {}'.format(json.dumps(prop,indent=4,sort_keys=True)))
+    logging.debug('Consumer Properties: {}'.format(json.dumps(prop, indent=4, sort_keys=True)))
     return prop
 
 
@@ -102,5 +119,5 @@ def get_producer_properties() -> dict:
             'default.topic.config': {'auto.offset.reset': 'smallest'},
             'group.id': os.environ['GROUP_ID']
         }
-    logging.info('Producer Properties: {}'.format(json.dumps(prop,indent=4,sort_keys=True)))
+    logging.debug('Producer Properties: {}'.format(json.dumps(prop, indent=4, sort_keys=True)))
     return prop

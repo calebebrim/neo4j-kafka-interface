@@ -1,6 +1,7 @@
 version: "3.2"
 services:
   neo4j:
+    restart: always
     image: neo4j
     ports:
       - "7471:7474"
@@ -10,31 +11,51 @@ services:
       - 7681
     volumes: 
       - ../neo4j/data:/var/lib/neo4j/data
+    networks: 
+      - database
 
-  n4j-server:
+  server:
     restart: always
     build: .
     entrypoint: python3 -m src.global_server.py
+    links: 
+      - neo4j:n4j
     environment:
       LOG: 'DEB'
-      BROKERS: kafka_1:9091,kafka_2:9092,kafka_3:9093
+      BROKERS: kafka_1:9090,kafka_2:9090,kafka_3:9090
       GROUP_ID: n4jserver
-      REQUEST_TOPIC: request
-      RESPONSE_TOPIC: response
+      REQUEST_TOPIC: neo4j-request
+      RESPONSE_TOPIC: neo4j-response
+      FAIL_TOPIC: neo4j-onfail
       NEO4J_USER: neo4j
       NEO4J_PASS: data1
-      NEO4J_URI: bolt://neo4j:7681
-  
-  neo4j-sync:
+      NEO4J_URI: bolt://neo4j:7687
+    networks: 
+      - compose-kafka_dataflow
+      - database
+
+  sync:
     restart: always
     build: .
     entrypoint: python3 -m src.db_sync.py
+    links: 
+      - neo4j:n4j
     environment:
       LOG: 'DEB'
-      BROKERS: server1:port1,server2:port2...
+      BROKERS: kafka_1:9090,kafka_2:9090,kafka_3:9090
       GROUP_ID: n4jserver
-      REQUEST_TOPIC: command
-      RESPONSE_TOPIC: command-response
+      REQUEST_TOPIC: neo4j-command
+      RESPONSE_TOPIC: neo4j-command-response
+      FAIL_TOPIC: neo4j-command-fail
       NEO4J_USER: neo4j
       NEO4J_PASS: data1
-      NEO4J_URI: bolt://localhost:7681
+      NEO4J_URI: bolt://neo4j:7687
+    networks: 
+      - compose-kafka_dataflow
+      - database
+
+networks: 
+  compose-kafka_dataflow:
+    external: true
+  database:
+    driver: bridge

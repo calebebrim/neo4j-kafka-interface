@@ -9,7 +9,7 @@ FROM python:3.6.10-buster
 
 # update pip
 # RUN python3 -m pip install pip --upgrade
-RUN python3 -m pip install confluent-kafka neo4j
+RUN python3 -m pip install confluent-kafka neo4j deprecation
 COPY src /service/src
 WORKDIR /service
 
