@@ -17,7 +17,7 @@ services:
   server:
     restart: always
     build: .
-    entrypoint: python3 -m src.global_server.py
+    entrypoint: python3 -m src.global_server
     links: 
       - neo4j:n4j
     environment:
