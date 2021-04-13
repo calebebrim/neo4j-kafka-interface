@@ -28,7 +28,8 @@ def iter_messages() -> Message:
             msg = requester.poll(1.0)
 
             if msg is None:
-                logging.warning("No message fetched from {}".format(os.environ['REQUEST_TOPIC']))
+                logging.warning("No message fetched from {}".format(
+                    os.environ['REQUEST_TOPIC']))
                 continue
             if msg.error():
                 logging.error("Consumer error: {}".format(msg.error()))
@@ -37,14 +38,16 @@ def iter_messages() -> Message:
             yield msg
 
     except Exception as ex:
-        logging.error("Something happened while iterating messages and forced iteration ends: {}".format(ex))
+        logging.error(
+            "Something happened while iterating messages and forced iteration ends: {}".format(ex))
         raise ex
 
 
 def get_requests_consumer() -> Consumer:
     c: Consumer = Consumer(get_consumer_properties(
         mode='latest'))
-    logging.info("Consumer is subscribing to {}".format(os.environ['REQUEST_TOPIC']))
+    logging.info("Consumer is subscribing to {}".format(
+        os.environ['REQUEST_TOPIC']))
     subscribe([os.environ['REQUEST_TOPIC']], consumer=c)
     return c
 
@@ -96,7 +99,8 @@ def get_consumer_properties(mode: str = 'smallest'):
             'default.topic.config': {'auto.offset.reset': mode},
             'group.id': os.environ['GROUP_ID'],
         }
-    logging.debug('Consumer Properties: {}'.format(json.dumps(prop, indent=4, sort_keys=True)))
+    logging.debug('Consumer Properties: {}'.format(
+        json.dumps(prop, indent=4, sort_keys=True)))
     return prop
 
 
@@ -119,5 +123,6 @@ def get_producer_properties() -> dict:
             'default.topic.config': {'auto.offset.reset': 'smallest'},
             'group.id': os.environ['GROUP_ID']
         }
-    logging.debug('Producer Properties: {}'.format(json.dumps(prop, indent=4, sort_keys=True)))
+    logging.debug('Producer Properties: {}'.format(
+        json.dumps(prop, indent=4, sort_keys=True)))
     return prop

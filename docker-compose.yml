@@ -12,7 +12,7 @@ services:
     volumes: 
       - ../neo4j/data:/var/lib/neo4j/data
     networks: 
-      - database
+      - compose-kafka-manager_dataflow
 
   server:
     restart: always
@@ -31,8 +31,7 @@ services:
       NEO4J_PASS: data1
       NEO4J_URI: bolt://neo4j:7687
     networks: 
-      - compose-kafka_dataflow
-      - database
+      - compose-kafka-manager_dataflow
 
   sync:
     restart: always
@@ -51,11 +50,10 @@ services:
       NEO4J_PASS: data1
       NEO4J_URI: bolt://neo4j:7687
     networks: 
-      - compose-kafka_dataflow
-      - database
+      - compose-kafka-manager_dataflow
 
-networks: 
-  compose-kafka_dataflow:
+    
+
+networks:
+  compose-kafka-manager_dataflow:
     external: true
-  database:
-    driver: bridge
