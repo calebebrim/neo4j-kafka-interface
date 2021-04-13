@@ -4,4 +4,4 @@ RUN python3 -m pip install confluent-kafka neo4j deprecation
 COPY src /service/src
 WORKDIR /service
 
-ENTRYPOINT [ "/bin/sh"]
+ENTRYPOINT [ "/bin/sh", "python3 -m src.global_server.py"]
